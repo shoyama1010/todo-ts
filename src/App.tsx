@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-
 import { Login } from "./components/pages/Login";
 import { Items } from "./components/pages/Items";
 import { AdminDashboard } from "./components/pages/AdminDashboard";
 import { UserList } from "./components/pages/UserList";
-
 import { Header } from "./components/layout/Header";
 import { ProtectedRoute } from "./components/routes/ProtectedRoute";
+import { ProductDetail } from "./components/pages/ProductDetail";
+
 
 function App() {
   return (
@@ -45,6 +45,16 @@ function App() {
             element={
               <ProtectedRoute>
                 <UserList />
+              </ProtectedRoute>
+            }
+          />
+
+          {/* 詳細ページ */}
+          <Route
+            path='/items/:id'
+            element={
+              <ProtectedRoute>
+                <ProductDetail />
               </ProtectedRoute>
             }
           />

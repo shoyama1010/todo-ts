@@ -14,7 +14,7 @@ export const Header = () => {
 
   return (
     <header className='header'>
-      <h1 className='logo'>Todo App</h1>
+      <h1 className='logo'>Mogitate</h1>
 
       <div className='header-right'>
         <span className='user-name'>{user.name}</span>

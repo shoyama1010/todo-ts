@@ -1,5 +1,3 @@
-
-// import { useState } from "react";
 import { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -26,12 +24,7 @@ export const Login = () => {
     }
   }, [user, navigate]);
 
-  // if (email === "admin@test.com") {
-  //   navigate("/admin");
-  // } else {
-  //   // navigate("/users");
-  //   navigate("/items"); //
-  // }
+
 
   return (
       <div className="login-container">

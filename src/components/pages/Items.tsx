@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Item = {
   id: number;
   name: string;
   price: number;
+  image?: string;
 };
 
 export const Items = () => {
   const [items, setItems] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost/api/products")
@@ -26,115 +29,49 @@ export const Items = () => {
   if (loading) return <p>読み込み中...</p>;
 
   return (
-    <div style={{ padding: "30px" }}>
-      <h2>商品一覧（API接続）</h2>
+    <div style={{ padding: "40px" }}>
+      <h2 style={{ marginBottom: "30px" }}>商品一覧（API接続）</h2>
 
-      <ul>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+          gap: "20px",
+        }}
+      >
         {items.map((item) => (
-          <li key={item.id}>
-            {item.name} ¥{item.price}
-          </li>
+          <div
+            key={item.id}
+            onClick={() => navigate(`/items/${item.id}`)}
+            style={{
+              cursor: "pointer",
+              borderRadius: "12px",
+              overflow: "hidden",
+              background: "#fff",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              transition: "0.2s",
+            }}
+          >
+            <img
+              src={`http://localhost/storage/${item.image}`}
+              alt={item.name}
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover",
+              }}
+            />
+
+            <div style={{ padding: "15px" }}>
+              <h3 style={{ margin: "0 0 10px" }}>{item.name}</h3>
+              <p style={{ margin: 0, fontWeight: "bold" }}>¥{item.price}</p>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
+      
     </div>
   );
 };
 
-// // import { useState } from "react";
-// import { useEffect, useState } from "react";
 
-// type Item = {
-//   id: number;
-//   name: string;
-// };
-
-// export const Items = () => {
-//   const [items, setItems] = useState<Item[]>([
-//     { id: 1, name: "りんご" },
-//     { id: 2, name: "みかん" },
-//     { id: 3, name: "バナナ" },
-//   ]);
-
-//   const [newItem, setNewItem] = useState("");
-
-//   const handleAddItem = () => {
-//     if (!newItem.trim()) return;
-
-//     const newData: Item = {
-//       id: Date.now(),
-//       name: newItem,
-//     };
-
-//     setItems([...items, newData]);
-//     setNewItem("");
-//   };
-
-//   const handleDelete = (id: number) => {
-//     setItems(items.filter((item) => item.id !== id));
-//   };
-
-//   return (
-//     <div style={{ padding: "30px" }}>
-//       <h2>アイテム一覧</h2>
-
-//       {/* 追加フォーム */}
-//       <div style={{ marginBottom: "20px" }}>
-//         <input
-//           value={newItem}
-//           onChange={(e) => setNewItem(e.target.value)}
-//           placeholder='アイテム名を入力'
-//           style={{
-//             padding: "8px",
-//             marginRight: "10px",
-//             width: "200px",
-//           }}
-//         />
-//         <button
-//           onClick={handleAddItem}
-//           style={{
-//             padding: "8px 12px",
-//             backgroundColor: "#4f46e5",
-//             color: "white",
-//             border: "none",
-//             borderRadius: "4px",
-//             cursor: "pointer",
-//           }}
-//         >
-//           追加
-//         </button>
-//       </div>
-
-//       {/* 一覧表示 */}
-//       <ul style={{ listStyle: "none", padding: 0 }}>
-//         {items.map((item) => (
-//           <li
-//             key={item.id}
-//             style={{
-//               marginBottom: "10px",
-//               display: "flex",
-//               justifyContent: "space-between",
-//               maxWidth: "300px",
-//               borderBottom: "1px solid #ddd",
-//               paddingBottom: "5px",
-//             }}
-//           >
-//             <span>{item.name}</span>
-//             <button
-//               onClick={() => handleDelete(item.id)}
-//               style={{
-//                 backgroundColor: "#ef4444",
-//                 color: "white",
-//                 border: "none",
-//                 borderRadius: "4px",
-//                 padding: "4px 8px",
-//                 cursor: "pointer",
-//               }}
-//             >
-//               削除
-//             </button>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// };
