@@ -6,7 +6,8 @@ import { AdminDashboard } from "./components/pages/AdminDashboard";
 import { UserList } from "./components/pages/UserList";
 import { Header } from "./components/layout/Header";
 import { ProtectedRoute } from "./components/routes/ProtectedRoute";
-import { ProductDetail } from "./components/pages/ProductDetail";
+import { ItemDetail } from "./components/pages/ItemDetail";
+import { OrderHistory } from "./components/pages/OrderHistory";
 
 
 function App() {
@@ -54,10 +55,12 @@ function App() {
             path='/items/:id'
             element={
               <ProtectedRoute>
-                <ProductDetail />
+                <ItemDetail />
               </ProtectedRoute>
             }
           />
+
+          <Route path='/orders' element={<OrderHistory />} />
 
           {/* 存在しないURLはログインへ */}
           <Route path='*' element={<Navigate to='/' />} />
