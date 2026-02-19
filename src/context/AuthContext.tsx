@@ -1,9 +1,9 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState,
   type ReactNode,
-  useEffect,
 } from "react";
 
 type User = {
@@ -14,14 +14,16 @@ type User = {
 };
 
 type AuthContextType = {
-  user: User | null;
-  setUser: (user: User | null) => void;
+  user: User | null | undefined;
+  setUser: React.Dispatch<React.SetStateAction<User | null | undefined>>;
 };
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  
+  // const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   // 🔥 リロード時にログイン状態復元
   useEffect(() => {
@@ -31,13 +33,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           credentials: "include",
         });
 
-        if (!res.ok) {
+        // if (!res.ok) {
+        //   setUser(null);
+        //   return;
+        // }
+        if (res.status === 401) {
           setUser(null);
           return;
         }
 
+        if (!res.ok) {
+          throw new Error("Server error");
+        }
+
         const data = await res.json();
         setUser(data);
+        
       } catch {
         setUser(null);
       }

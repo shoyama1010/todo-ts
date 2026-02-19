@@ -8,18 +8,18 @@ import { Header } from "./components/layout/Header";
 import { ProtectedRoute } from "./components/routes/ProtectedRoute";
 import { ItemDetail } from "./components/pages/ItemDetail";
 import { OrderHistory } from "./components/pages/OrderHistory";
-
+import { Register } from "./components/pages/Register";
 
 function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
         <Header />
-
         <Routes>
+          {/* 新規登録 */}
+          <Route path='/register' element={<Register />} />
           {/* ログイン */}
           <Route path='/' element={<Login />} />
-
           {/* ユーザー専用ページ */}
           <Route
             path='/items'
@@ -29,7 +29,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           {/* 管理者ページ */}
           <Route
             path='/admin'
@@ -39,7 +38,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           {/* ユーザー一覧（例） */}
           <Route
             path='/users'
@@ -49,7 +47,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           {/* 詳細ページ */}
           <Route
             path='/items/:id'

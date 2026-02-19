@@ -41,6 +41,11 @@ export const ItemDetail = () => {
     if (!product) return;
 
     try {
+      // ★ 追加（重要）
+      await fetch("http://localhost/sanctum/csrf-cookie", {
+        credentials: "include",
+      });
+
       const res = await fetch("http://localhost/api/orders", {
         method: "POST",
         credentials: "include",
@@ -49,7 +54,7 @@ export const ItemDetail = () => {
         },
         body: JSON.stringify({
           // user_id: 1,
-          product_id: id,
+          product_id: Number(id),
           quantity: 1,
         }),
       });

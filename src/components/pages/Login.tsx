@@ -82,6 +82,15 @@ export const Login = () => {
 
         <button onClick={handleLogin}>ログイン</button>
       </div>
+      <p>
+        アカウントをお持ちでない方は
+        <span
+          style={{ color: "blue", cursor: "pointer" }}
+          onClick={() => navigate("/register")}
+        >
+          新規登録
+        </span>
+      </p>
     </div>
   );
 };
