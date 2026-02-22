@@ -1,5 +1,42 @@
 # React + TypeScript + Vite
 
+
+
+# 作成した目的
+
+# アプリケーションURL
+ローカル環境
+http://localhost:5173
+
+# 機能一覧
+
+・認証機能
+
+・購入機能
+
+# 使用技術
+
+・React.js
+
+・Node.js
+
+・TypeScript（型定義は最小限）
+
+・Vite（React内部で使用）
+
+
+# 環境構築
+
+## 1. リポジトリをクローン
+
+git clone https://github.com/shoyama1010/todo-ts.git
+
+cd fruit-todo-ts
+
+
+## 2.　パッケージをインストール
+
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
