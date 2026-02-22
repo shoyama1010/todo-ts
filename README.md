@@ -1,6 +1,6 @@
 # React + TypeScript + Vite
 
-
+<img width="1336" height="675" alt="Image" src="https://github.com/user-attachments/assets/fa290ccc-f40c-4f17-b991-54a9e16b3058" />
 
 # 作成した目的
 
