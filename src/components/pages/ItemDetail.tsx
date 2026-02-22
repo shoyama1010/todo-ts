@@ -41,17 +41,28 @@ export const ItemDetail = () => {
     if (!product) return;
 
     try {
-      // ★ 追加（重要）
+      // 追加
       await fetch("http://localhost/sanctum/csrf-cookie", {
         credentials: "include",
       });
+      // 追加（重要）
+      const xsrfToken = decodeURIComponent(
+        document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("XSRF-TOKEN="))
+          ?.split("=")[1] || "",
+      );
 
       const res = await fetch("http://localhost/api/orders", {
         method: "POST",
         credentials: "include",
+
+        // ↓ここにも「X-XSRF-TOKEN」追加
         headers: {
           "Content-Type": "application/json",
+          "X-XSRF-TOKEN": xsrfToken,
         },
+
         body: JSON.stringify({
           // user_id: 1,
           product_id: Number(id),
@@ -60,10 +71,10 @@ export const ItemDetail = () => {
       });
 
       if (!res.ok) throw new Error("failed");
-      // const data = await res.json();
-      // console.log("購入結果:", data);
+      // alert削除して画面遷移
+      navigate("/orders");
 
-      alert("購入しました！");
+      // alert("購入しました！");
     } catch (error) {
       console.error("購入エラー:", error);
       alert("購入に失敗しました");
@@ -72,7 +83,6 @@ export const ItemDetail = () => {
 
   if (loading) return <p style={{ padding: "40px" }}>読み込み中...</p>;
   if (!product) return <p style={{ padding: "40px" }}>商品が見つかりません</p>;
-
 
   return (
     <div style={{ padding: "40px" }}>
@@ -139,4 +149,4 @@ export const ItemDetail = () => {
       </button>
     </div>
   );
-};;
+};
